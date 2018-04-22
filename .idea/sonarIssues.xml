@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../course_exercise_projects/AdvancedAndroid_ClassicalMusicQuiz/app/src/main/res/layout/activity_quiz.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../course_exercise_projects/android-architecture-components/BasicSample/app/src/main/java/com/example/android/persistence/AppExecutors.java">
           <value>
             <set />
@@ -414,6 +419,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_recipe_step_detail.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/exo_playback_control_view.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/exo_simple_player_view.xml">
           <value>
             <set />
           </value>

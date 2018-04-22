@@ -9,4 +9,7 @@
     <dimen name="recipe_single_step_desc_top_bottom_padding">16dp</dimen>
     <dimen name="recipe_step_instruction_padding">16dp</dimen>
     <dimen name="recipe_step_button_start_end_padding">36dp</dimen>
+    <dimen name="recipe_step_exo_player_height">260dp</dimen>
+    <dimen name="exo_fullscreen_button_width_height">32dp</dimen>
+    <dimen name="exo_fullscreen_icon_width_height">18dp</dimen>
 </resources>

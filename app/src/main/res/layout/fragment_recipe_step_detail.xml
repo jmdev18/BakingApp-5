@@ -3,23 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/primary"
+    android:orientation="vertical"
     tools:context=".ui.RecipeStepDetailFragment">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/recipe_step_media_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:background="@color/accent"
-        android:text="Media player" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/recipe_step_exo_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recipe_step_exo_player_height" />
+
+        <ImageView
+            android:id="@+id/recipe_step_exo_player_fallback_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recipe_step_exo_player_height"
+            android:contentDescription="@string/recipe_step_exo_player_fallback_image"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+    </FrameLayout>
+
     <TextView
         android:id="@+id/tv_recipe_step_instruction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:textColor="@color/primary_text"
         android:padding="@dimen/recipe_step_instruction_padding"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:text="This is the recipe instruction"/>
+        android:textColor="@color/primary_text"
+        tools:text="This is the recipe instruction" />
 </LinearLayout>

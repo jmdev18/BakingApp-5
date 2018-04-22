@@ -10,4 +10,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bt_prev_recipe_step">Prev Step</string>
     <string name="bt_next_recipe_step">Next Step</string>
+    <string name="recipe_step_exo_player_fallback_image">Recipe Image</string>
+    <string name="exo_player_full_screen_button">Exo player fullscreen button</string>
 </resources>

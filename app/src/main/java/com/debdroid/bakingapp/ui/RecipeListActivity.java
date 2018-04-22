@@ -46,7 +46,6 @@ public class RecipeListActivity extends AppCompatActivity
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
-        Timber.d("supportFragmentInjector is called");
         return supportFragmentInjector;
     }
 

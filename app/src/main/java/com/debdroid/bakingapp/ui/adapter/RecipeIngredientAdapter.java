@@ -32,17 +32,6 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
         private RecipeIngredientViewHolder(final View view) {
             super(view);
             ButterKnife.bind(this, view);
-//            view.setOnClickListener(v -> {
-//                int adapterPosition = getAdapterPosition();
-//                int stepId = -1;
-//                // Again due to the "Recipe Ingredients" hack, read "position - 1"
-//                if(adapterPosition > 0) {
-//                    stepId = ingredientEntityList.get(adapterPosition - 1).stepId;
-//                }
-//                int stepCount = ingredientEntityList.size();
-//                recipeDetailAdapterOnClickHandler.onRecipeItemClick(adapterPosition, stepId,
-//                        stepCount, this);
-//            });
         }
     }
 
@@ -58,7 +47,8 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
         NumberFormat numberFormat = new DecimalFormat("0.#");
         String quantity = numberFormat.format(ingredientEntityList.get(position).quantity);
 
-        String ingredientItem = ingredientEntityList.get(position).ingredient +
+        String ingredientItem = (position + 1) + ". " +
+                ingredientEntityList.get(position).ingredient +
                 " - " +
                 quantity +
                 " " +

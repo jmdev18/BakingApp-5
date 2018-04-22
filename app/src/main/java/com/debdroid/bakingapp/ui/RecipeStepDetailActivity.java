@@ -38,15 +38,19 @@ public class RecipeStepDetailActivity extends AppCompatActivity
     public static final String RECIPE_STEP_ID_INTENT_EXTRA = "recipe_step_id_extra";
     public static final String RECIPE_STEP_POSITION_INTENT_EXTRA = "recipe_step_pos_extra";
     public static final String RECIPE_STEP_COUNT_INTENT_EXTRA = "recipe_step_count_extra";
+    public static final String STATE_STEP_ID = "state_step_id";
+    public static final String STATE_IS_STEP_FRAGMENT = "state_is_step_fragment";
 
     private int recipeStepAdapterPosition;
     private int recipeStepCount;
     private int recipeId;
     private int stepId;
+    private boolean isStepFragment = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Timber.d("onCreate is called");
         // Always Inject before super.onCreate, otherwise it fails while orientation change
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
@@ -61,10 +65,27 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         recipeStepAdapterPosition = getIntent().getIntExtra(RECIPE_STEP_POSITION_INTENT_EXTRA, -1);
         recipeStepCount = getIntent().getIntExtra(RECIPE_STEP_COUNT_INTENT_EXTRA, -1);
         recipeId = getIntent().getIntExtra(RECIPE_ID_INTENT_EXTRA, -1);
-        stepId = getIntent().getIntExtra(RECIPE_STEP_ID_INTENT_EXTRA, -1);
         String recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
 
-        getSupportActionBar().setTitle(recipeName);
+        if(!recipeName.isEmpty() && recipeName != null) {
+            getSupportActionBar().setTitle(recipeName);
+        }
+
+        // If this is the first time then retrieve the stepId from Intent otherwise used the save value
+        if(savedInstanceState == null) {
+            stepId = getIntent().getIntExtra(RECIPE_STEP_ID_INTENT_EXTRA, -1);
+        } else {
+            stepId = savedInstanceState.getInt(STATE_STEP_ID);
+            isStepFragment = savedInstanceState.getBoolean(STATE_IS_STEP_FRAGMENT);
+        }
+
+        // Handle button visibility and status while orientation change
+        if(isStepFragment) {
+            showHideButton(Button.VISIBLE);
+            setButtonStatus();
+        } else {
+            showHideButton(Button.GONE);
+        }
 
         Timber.d("recipeStepAdapterPosition " + recipeStepAdapterPosition);
         Timber.d("recipeStepCount " + recipeStepCount);
@@ -78,10 +99,12 @@ public class RecipeStepDetailActivity extends AppCompatActivity
             return;
         }
 
-        if (recipeStepAdapterPosition == 0) {
+        // First item in the adapter is Ingredient, so load Ingredients if adapter position is 0
+        // Fragment is aut generated while orientation change, so create it if this is the first time
+        if (recipeStepAdapterPosition == 0 && savedInstanceState == null) {
             loadRecipeIngredientFragment();
         } else
-            if(stepId > -1) {
+            if(stepId > -1 && savedInstanceState == null) {
                 loadStepDetailFragment();
             } else {
                 Timber.e("Invalid step id.");
@@ -89,56 +112,97 @@ public class RecipeStepDetailActivity extends AppCompatActivity
             }
         }
 
-    //    @OnClick(R.id.bt_recipe_step_prev_button)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Timber.d("onResume is called");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Timber.d("onPause is called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Timber.d("onDestroy is called");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Timber.d("onSaveInstanceState is called");
+        outState.putInt(STATE_STEP_ID, stepId);
+        outState.putBoolean(STATE_IS_STEP_FRAGMENT, isStepFragment);
+        super.onSaveInstanceState(outState);
+    }
+
     private void loadPrevStep() {
         Timber.d("Prev step button is clicked");
         if(stepId > 0) {
             stepId--;
             loadStepDetailFragment();
         } else {
-            Timber.d("Invalid step id :" + stepId);
+            Timber.e("Invalid step id :" + stepId);
         }
     }
 
-    //    @OnClick(R.id.bt_recipe_step_next_button)
     private void loadNextStep() {
         Timber.d("Next step button is clicked");
         if(stepId < recipeStepCount) {
             stepId++;
             loadStepDetailFragment();
         } else {
-            Timber.d("Invalid step id :" + stepId);
+            Timber.e("Invalid step id :" + stepId);
         }
     }
 
     private void loadStepDetailFragment() {
+        Timber.d("loadStepDetailFragment is called");
         showHideButton(Button.VISIBLE);
-
-        Bundle bundle = new Bundle();
-        bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
-        bundle.putInt(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
-
+        isStepFragment = true;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-        recipeStepDetailFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeStepDetailFragment);
-        fragmentTransaction.commit();
+
+//        Fragment fragment = fragmentManager.findFragmentById(R.id.fl_recipe_step_detail_fragment_container);
+//        // Fragment is auto created while orientation change, so handle that
+//        if(fragment == null) {
+            Timber.d("Fragment does not exist, create onw");
+            Bundle bundle = new Bundle();
+            bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+            bundle.putInt(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+            recipeStepDetailFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeStepDetailFragment);
+            fragmentTransaction.commit();
+//            setButtonStatus();
+//        } else {
+//            Timber.d("Fragment already exist, no need to create one");
+//        }
         setButtonStatus();
     }
 
     private void loadRecipeIngredientFragment() {
+        Timber.d("loadRecipeIngredientFragment is called");
         showHideButton(Button.GONE);
-
-        Bundle bundle = new Bundle();
-        bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
-
+        isStepFragment = false;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        RecipeIngredientFragment recipeIngredientFragment = new RecipeIngredientFragment();
-        recipeIngredientFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeIngredientFragment);
-        fragmentTransaction.commit();
+//        Fragment fragment = fragmentManager.findFragmentById(R.id.fl_recipe_step_detail_fragment_container);
+//        // Fragment is auto created while orientation change, so handle that
+//        if(fragment == null) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RecipeIngredientFragment recipeIngredientFragment = new RecipeIngredientFragment();
+            recipeIngredientFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeIngredientFragment);
+            fragmentTransaction.commit();
+//        } else {
+//            Timber.d("Fragment already exist, no need to create one");
+//        }
     }
 
     private void showHideButton(int visibility) {
