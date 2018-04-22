@@ -18,28 +18,28 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RecipeListViewModel.class)
-    @BakingApplicationScope
+    @RecipeCustomScope.BakingApplicationScope
     abstract ViewModel bindRecipeListViewModel(RecipeListViewModel recipeListViewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(RecipeDetailViewModel.class)
-    @BakingApplicationScope
+    @RecipeCustomScope.BakingApplicationScope
     abstract ViewModel bindRecipeDetailViewModel(RecipeDetailViewModel recipeDetailViewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(RecipeStepDetailViewModel.class)
-    @BakingApplicationScope
+    @RecipeCustomScope.BakingApplicationScope
     abstract ViewModel bindRecipeStepDetailViewModel(RecipeStepDetailViewModel recipeStepDetailViewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(RecipeIngredientViewModel.class)
-    @BakingApplicationScope
+    @RecipeCustomScope.BakingApplicationScope
     abstract ViewModel bindRecipeIngredientViewModel(RecipeIngredientViewModel recipeIngredientViewModel);
 
     @Binds
-    @BakingApplicationScope
+    @RecipeCustomScope.BakingApplicationScope
     abstract ViewModelProvider.Factory bindBakingViewModelFactory(BakingViewModelFactory factory);
 }

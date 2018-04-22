@@ -98,6 +98,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/BakingCustomScope.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/BakingJsonApiServiceModule.java">
           <value>
             <set />
@@ -118,6 +123,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeActivitiesModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeCustomScope.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeDetailActivityModule.java">
           <value>
             <set />
@@ -129,6 +144,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeDetailFragmentModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeFragmentsModule.java">
           <value>
             <set />
           </value>

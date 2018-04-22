@@ -23,14 +23,14 @@ package com.debdroid.bakingapp.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.debdroid.bakingapp.dagger.BakingApplicationScope;
+import com.debdroid.bakingapp.dagger.RecipeCustomScope;
 
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-@BakingApplicationScope
+@RecipeCustomScope.BakingApplicationScope
 public class BakingViewModelFactory implements ViewModelProvider.Factory {
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 

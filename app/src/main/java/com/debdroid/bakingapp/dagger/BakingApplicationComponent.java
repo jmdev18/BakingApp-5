@@ -8,18 +8,14 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 
-@BakingApplicationScope
+@RecipeCustomScope.BakingApplicationScope
 @Component(modules = {
         /* Use AndroidInjectionModule.class if you're not using support library */
         AndroidSupportInjectionModule.class,
         /* The application module */
         BakingApplicationModule.class,
-        /* The RecipeListActivity module */
-        RecipeListActivityModule.class,
-        /* The RecipeDetailActivity module */
-        RecipeDetailActivityModule.class,
-        /* The RecipeStepDetailActivityModule module */
-        RecipeStepDetailActivityModule.class
+        /* The module for all the activities */
+        RecipeActivitiesModule.class
         })
 public interface BakingApplicationComponent {
     @Component.Builder

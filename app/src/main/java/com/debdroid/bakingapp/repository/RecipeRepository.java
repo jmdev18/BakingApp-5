@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.debdroid.bakingapp.dagger.BakingApplicationScope;
+import com.debdroid.bakingapp.dagger.RecipeCustomScope;
 import com.debdroid.bakingapp.database.IngredientDao;
 import com.debdroid.bakingapp.database.IngredientEntity;
 import com.debdroid.bakingapp.database.RecipeDao;
@@ -24,7 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-@BakingApplicationScope //Let Dagger know that this class should be constructed only once
+@RecipeCustomScope.BakingApplicationScope
+//Let Dagger know that this class should be constructed only once
 public class RecipeRepository {
     private BakingJsonApiService bakingJsonApiService;
     private RecipeDao recipeDao;
