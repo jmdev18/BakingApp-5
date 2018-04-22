@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.debdroid.bakingapp"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //Retrofit related dependencies
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
+    //Dependencies for Timber logging
+    implementation 'com.jakewharton.timber:timber:4.7.0'
+
+    //Dagger2 dependencies
+    implementation 'com.google.dagger:dagger:2.15'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.15' // Annotation processor for dagger
+    implementation 'com.google.dagger:dagger-android-support:2.15' // Dagger android
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+    // Annotation processor for dagger android
+
+    //Picasso dependencies
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Butterknife dependencies
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //Facebook Stetho dependencies
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    //Architecture Components
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    // Room (use 1.1.0-beta2 for latest beta)
+    implementation "android.arch.persistence.room:runtime:1.1.0-beta2"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0-beta2"
+    // Java8 support for Lifecycles
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+    // Test helpers for LiveData
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    // Test helpers for Room
+    testImplementation "android.arch.persistence.room:testing:1.0.0"
+}
