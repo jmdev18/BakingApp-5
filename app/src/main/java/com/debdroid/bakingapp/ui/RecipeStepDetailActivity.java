@@ -38,8 +38,9 @@ public class RecipeStepDetailActivity extends AppCompatActivity
     public static final String RECIPE_STEP_ID_INTENT_EXTRA = "recipe_step_id_extra";
     public static final String RECIPE_STEP_POSITION_INTENT_EXTRA = "recipe_step_pos_extra";
     public static final String RECIPE_STEP_COUNT_INTENT_EXTRA = "recipe_step_count_extra";
-    public static final String STATE_STEP_ID = "state_step_id";
-    public static final String STATE_IS_STEP_FRAGMENT = "state_is_step_fragment";
+
+    private final String STATE_STEP_ID = "state_step_id";
+    private final String STATE_IS_STEP_FRAGMENT = "state_is_step_fragment";
 
     private int recipeStepAdapterPosition;
     private int recipeStepCount;
@@ -56,6 +57,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_step_detail);
         ButterKnife.bind(this);
+
         recipePrevStepButton.setOnClickListener((recipePrevStepButton) -> loadPrevStep());
         recipeNextStepButton.setOnClickListener((recipeNextStepButton) -> loadNextStep());
 
@@ -67,12 +69,12 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         recipeId = getIntent().getIntExtra(RECIPE_ID_INTENT_EXTRA, -1);
         String recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
 
-        if(!recipeName.isEmpty() && recipeName != null) {
+        if (!recipeName.isEmpty() && recipeName != null) {
             getSupportActionBar().setTitle(recipeName);
         }
 
         // If this is the first time then retrieve the stepId from Intent otherwise used the save value
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             stepId = getIntent().getIntExtra(RECIPE_STEP_ID_INTENT_EXTRA, -1);
         } else {
             stepId = savedInstanceState.getInt(STATE_STEP_ID);
@@ -80,7 +82,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         }
 
         // Handle button visibility and status while orientation change
-        if(isStepFragment) {
+        if (isStepFragment) {
             showHideButton(Button.VISIBLE);
             setButtonStatus();
         } else {
@@ -94,8 +96,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         Timber.d("stepId " + stepId);
 
         if (recipeId < 0) {
-            Timber.e("Invalid recipe id.");
-            Timber.e("Recipe Id: " + recipeId);
+            Timber.e("Invalid recipe id: " + recipeId);
             return;
         }
 
@@ -103,14 +104,12 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         // Fragment is aut generated while orientation change, so create it if this is the first time
         if (recipeStepAdapterPosition == 0 && savedInstanceState == null) {
             loadRecipeIngredientFragment();
-        } else
-            if(stepId > -1 && savedInstanceState == null) {
-                loadStepDetailFragment();
-            } else {
-                Timber.e("Invalid step id.");
-                Timber.e("Step Id: " + stepId);
-            }
+        } else if (stepId > -1 && savedInstanceState == null) {
+            loadStepDetailFragment();
+        } else {
+            Timber.e("Invalid step id: " + stepId);
         }
+    }
 
     @Override
     protected void onResume() {
@@ -140,7 +139,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
 
     private void loadPrevStep() {
         Timber.d("Prev step button is clicked");
-        if(stepId > 0) {
+        if (stepId > 0) {
             stepId--;
             loadStepDetailFragment();
         } else {
@@ -150,7 +149,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
 
     private void loadNextStep() {
         Timber.d("Next step button is clicked");
-        if(stepId < recipeStepCount) {
+        if (stepId < recipeStepCount) {
             stepId++;
             loadStepDetailFragment();
         } else {
@@ -162,25 +161,18 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         Timber.d("loadStepDetailFragment is called");
         showHideButton(Button.VISIBLE);
         isStepFragment = true;
+
+        Timber.d("Fragment does not exist, create onw");
+        Bundle bundle = new Bundle();
+        bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+        bundle.putInt(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-
-//        Fragment fragment = fragmentManager.findFragmentById(R.id.fl_recipe_step_detail_fragment_container);
-//        // Fragment is auto created while orientation change, so handle that
-//        if(fragment == null) {
-            Timber.d("Fragment does not exist, create onw");
-            Bundle bundle = new Bundle();
-            bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
-            bundle.putInt(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
-
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-            recipeStepDetailFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeStepDetailFragment);
-            fragmentTransaction.commit();
-//            setButtonStatus();
-//        } else {
-//            Timber.d("Fragment already exist, no need to create one");
-//        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+        recipeStepDetailFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeStepDetailFragment);
+        fragmentTransaction.commit();
         setButtonStatus();
     }
 
@@ -188,21 +180,16 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         Timber.d("loadRecipeIngredientFragment is called");
         showHideButton(Button.GONE);
         isStepFragment = false;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-//        Fragment fragment = fragmentManager.findFragmentById(R.id.fl_recipe_step_detail_fragment_container);
-//        // Fragment is auto created while orientation change, so handle that
-//        if(fragment == null) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
 
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            RecipeIngredientFragment recipeIngredientFragment = new RecipeIngredientFragment();
-            recipeIngredientFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeIngredientFragment);
-            fragmentTransaction.commit();
-//        } else {
-//            Timber.d("Fragment already exist, no need to create one");
-//        }
+        Bundle bundle = new Bundle();
+        bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RecipeIngredientFragment recipeIngredientFragment = new RecipeIngredientFragment();
+        recipeIngredientFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeIngredientFragment);
+        fragmentTransaction.commit();
     }
 
     private void showHideButton(int visibility) {
@@ -211,12 +198,12 @@ public class RecipeStepDetailActivity extends AppCompatActivity
     }
 
     private void setButtonStatus() {
-        if(stepId == 0) {
-            Toast.makeText(this, "This is the first step",Toast.LENGTH_SHORT).show();
+        if (stepId == 0) {
+            Toast.makeText(this, "This is the first step", Toast.LENGTH_SHORT).show();
             recipePrevStepButton.setEnabled(false);
             recipePrevStepButton.setAlpha(0.4f);
-        } else if(stepId == recipeStepCount - 1) {
-            Toast.makeText(this, "This is the last step",Toast.LENGTH_SHORT).show();
+        } else if (stepId == recipeStepCount - 1) {
+            Toast.makeText(this, "This is the last step", Toast.LENGTH_SHORT).show();
             recipeNextStepButton.setEnabled(false);
             recipeNextStepButton.setAlpha(0.4f);
         } else {

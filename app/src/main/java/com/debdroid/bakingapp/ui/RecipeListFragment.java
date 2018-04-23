@@ -44,9 +44,7 @@ public class RecipeListFragment extends Fragment {
 
     private RecipeListAdapter recipeAdapter;
     private Unbinder unbinder;
-
     private OnRecipeListFragmentInteractionListener mListener;
-
     private Parcelable linearLayoutManagerState;
     private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
 
@@ -94,7 +92,6 @@ public class RecipeListFragment extends Fragment {
         recipeAdapter = new RecipeListAdapter(picasso,
                 ((recipeId, recipeName, vh) -> mListener.onRecipeListFragmentInteraction(recipeId, recipeName)));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-//        linearLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         //Set this to false for smooth scrolling of RecyclerView
         recyclerView.setNestedScrollingEnabled(false);

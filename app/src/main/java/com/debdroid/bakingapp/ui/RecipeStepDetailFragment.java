@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.utility.CommonUtility;
@@ -30,7 +28,6 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -58,7 +55,6 @@ public class RecipeStepDetailFragment extends Fragment {
     Picasso picasso;
     @BindView(R.id.tv_recipe_step_instruction)
     TextView recipeInstructionTextView;
-    private SimpleExoPlayer simpleExoPlayer;
     @BindView(R.id.recipe_step_exo_player_view)
     PlayerView exoPlayerView;
     @BindView(R.id.recipe_step_exo_player_fallback_image)
@@ -66,13 +62,13 @@ public class RecipeStepDetailFragment extends Fragment {
     @BindView(R.id.recipe_step_media_container)
     FrameLayout mediaContainerFrameLayout;
 
+    private SimpleExoPlayer simpleExoPlayer;
     private Dialog exoPlayerFullScreenDialog;
     private boolean exoPlayerFullscreen = false;
     private ImageView exoPlayerFullScreenIcon;
     private FrameLayout exoPlayerFullScreenButtonContainer;
     private int exoPlayerResumeWindow;
     private long exoPlayerResumePosition;
-
     private Unbinder unbinder;
     private int recipeId;
     private int stepId;
@@ -101,7 +97,7 @@ public class RecipeStepDetailFragment extends Fragment {
             exoPlayerResumeWindow = savedInstanceState.getInt(STATE_EXO_PLAYER_RESUME_WINDOW);
             exoPlayerResumePosition = savedInstanceState.getLong(STATE_EXO_PLAYER_RESUME_POSITION);
             exoPlayerFullscreen = savedInstanceState.getBoolean(STATE_EXO_PLAYER_PLAYER_FULLSCREEN);
-            Timber.d("onCreate: exoPlayerResumePosition -> "+exoPlayerResumePosition);
+            Timber.d("onCreate: exoPlayerResumePosition -> " + exoPlayerResumePosition);
         } else {
             Timber.d("onCreate: initial state");
         }
@@ -113,7 +109,7 @@ public class RecipeStepDetailFragment extends Fragment {
         Timber.d("onCreateView is called");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_step_detail, container, false);
-        unbinder = ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
         recipeId = getArguments().getInt(RecipeStepDetailActivity.RECIPE_ID_INTENT_EXTRA, -1);
         stepId = getArguments().getInt(RecipeStepDetailActivity.RECIPE_STEP_ID_INTENT_EXTRA, -1);
         return view;
@@ -123,43 +119,42 @@ public class RecipeStepDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Timber.d("onActivityCreated is called");
-        if(recipeId < 0 || stepId < 0) {
+        if (recipeId < 0 || stepId < 0) {
             Timber.e("Invalid recipe id or step id.");
             Timber.e("Recipe Id: " + recipeId);
             Timber.e("Step Id: " + stepId);
             return;
         }
+
         RecipeStepDetailViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipeStepDetailViewModel.class);
         viewModel.getStep(recipeId, stepId).observe(this,
                 stepEntity -> {
-//                    recipeInstructionTextView.setText(stepEntity.description);
-                    recipeInstructionTextView.setText(stepEntity.description + "\n ForTesting: VideoURL-> " + stepEntity.videoURL);
+                    recipeInstructionTextView.setText(stepEntity.description);
+//                    recipeInstructionTextView.setText(stepEntity.description + "\n ForTesting: VideoURL-> " + stepEntity.videoURL);
                     String videoUrl = stepEntity.videoURL;
                     String thumbnailUrl = stepEntity.thumbnailURL;
 
-//                    // Remove the fallback image always, when needed we will make it visible
-//                    exoPlayerFallbackImageView.setVisibility(ImageView.GONE);
                     // If we have videoUrl then load the video
-                    if(!videoUrl.isEmpty() && videoUrl != null) {
+                    if (!videoUrl.isEmpty() && videoUrl != null) {
                         mediaContainerFrameLayout.setVisibility(FrameLayout.VISIBLE); // Make it visible for video irrespective of orientation
                         exoPlayerFallbackImageView.setVisibility(ImageView.GONE);
                         // Initialize the ExoPlayer
                         initializeExoPlayer(Uri.parse(stepEntity.videoURL));
 
-                      // Show the image only in portrait mode
-                    } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        // Show the image only in portrait mode
+                    } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                         mediaContainerFrameLayout.setVisibility(FrameLayout.VISIBLE); // Make it visible always in portrait mode
-                        if(!thumbnailUrl.isEmpty() && thumbnailUrl != null)  { // If we do not have the videoUrl then check if we have a thumbnail image
+                        if (!thumbnailUrl.isEmpty() && thumbnailUrl != null) { // If we do not have the videoUrl then check if we have a thumbnail image
                             exoPlayerFallbackImageView.setVisibility(ImageView.VISIBLE);
                             picasso.load(thumbnailUrl)
-                                    .placeholder(CommonUtility.getFallbackImageId(recipeId-1))
-                                    .error(CommonUtility.getFallbackImageId(recipeId-1))
+                                    .placeholder(CommonUtility.getFallbackImageId(recipeId - 1))
+                                    .error(CommonUtility.getFallbackImageId(recipeId - 1))
                                     .into(exoPlayerFallbackImageView);
 
                         } else { // Else fallback to recipe image from local store
                             exoPlayerFallbackImageView.setVisibility(ImageView.VISIBLE);
-                            exoPlayerFallbackImageView.setImageResource(CommonUtility.getFallbackImageId(recipeId-1));
+                            exoPlayerFallbackImageView.setImageResource(CommonUtility.getFallbackImageId(recipeId - 1));
                         }
                     } else {
                         mediaContainerFrameLayout.setVisibility(FrameLayout.GONE);
@@ -171,7 +166,7 @@ public class RecipeStepDetailFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Timber.d("onResume is called");
-        if(exoPlayerView != null) {
+        if (exoPlayerView != null) {
             initFullscreenDialog();
             initFullscreenButton();
         }
@@ -181,15 +176,14 @@ public class RecipeStepDetailFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Timber.d("onPause is called");
-        if(exoPlayerView != null && simpleExoPlayer != null) {
+        if (exoPlayerView != null && simpleExoPlayer != null) {
             exoPlayerResumeWindow = simpleExoPlayer.getCurrentWindowIndex();
             exoPlayerResumePosition = Math.max(0, simpleExoPlayer.getContentPosition());
-            Timber.d("onPause:exoPlayerResumeWindow-> " +exoPlayerResumeWindow);
-            Timber.d("onPause:exoPlayerResumePosition-> " +exoPlayerResumePosition);
-//            simpleExoPlayer.release();
+            Timber.d("onPause:exoPlayerResumeWindow-> " + exoPlayerResumeWindow);
+            Timber.d("onPause:exoPlayerResumePosition-> " + exoPlayerResumePosition);
         }
 
-        if(exoPlayerFullScreenDialog != null) {
+        if (exoPlayerFullScreenDialog != null) {
             exoPlayerFullScreenDialog.dismiss();
         }
     }
@@ -203,19 +197,6 @@ public class RecipeStepDetailFragment extends Fragment {
 
         super.onSaveInstanceState(outState);
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        // Checks the orientation of the screen
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Toast.makeText(getActivity(), "landscape", Toast.LENGTH_SHORT).show();
-//            Timber.d("landscape");
-//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-//            Toast.makeText(getActivity(), "portrait", Toast.LENGTH_SHORT).show();
-//            Timber.d("portrait");
-//        }
-//    }
 
     @Override
     public void onDestroyView() {
@@ -255,7 +236,7 @@ public class RecipeStepDetailFragment extends Fragment {
 
             // Check if we have resume position, if yes then start from there
             boolean haveResumePosition = exoPlayerResumeWindow != C.INDEX_UNSET;
-            if(haveResumePosition) {
+            if (haveResumePosition) {
                 Timber.d("Setting player to window: " + exoPlayerResumeWindow + " and to position: " + exoPlayerResumePosition);
                 simpleExoPlayer.seekTo(exoPlayerResumeWindow, exoPlayerResumePosition);
             } else {
@@ -264,7 +245,7 @@ public class RecipeStepDetailFragment extends Fragment {
 
             // Check if it's landscape mode, if yes then always show the player in full screen
             int orientation = getResources().getConfiguration().orientation;
-            if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 openFullscreenDialog();
                 // Disable the fullscreen exit button, so that in landscape mode video is always fullscreen
                 exoPlayerFullScreenIcon.setVisibility(ImageView.GONE);
@@ -278,7 +259,7 @@ public class RecipeStepDetailFragment extends Fragment {
 
     private void releaseExoPlayer() {
         Timber.d("releaseExoPlayer is called");
-        if(simpleExoPlayer != null) {
+        if (simpleExoPlayer != null) {
             simpleExoPlayer.stop();
             simpleExoPlayer.release();
             simpleExoPlayer = null;

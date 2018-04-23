@@ -2,7 +2,6 @@ package com.debdroid.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +22,7 @@ import timber.log.Timber;
 
 public class RecipeDetailActivity extends AppCompatActivity
         implements HasSupportFragmentInjector,
-                    RecipeDetailFragment.OnRecipeDetailFragmentInteractionListener {
+        RecipeDetailFragment.OnRecipeDetailFragmentInteractionListener {
 
     @Inject
     DispatchingAndroidInjector<Fragment> supportFragmentInjector;
@@ -49,18 +48,19 @@ public class RecipeDetailActivity extends AppCompatActivity
         recipeId = getIntent().getIntExtra(RECIPE_ID_INTENT_EXTRA, -1);
         recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
 
-        getSupportActionBar().setTitle(recipeName);
+        if (!recipeName.isEmpty() && recipeName != null) {
+            getSupportActionBar().setTitle(recipeName);
+        }
+
+        if (recipeId == -1) {
+            Timber.e("Invalid recipeId : " + recipeId);
+            return;
+        }
 
         // Fragment is created automatically while orientation change, so create it if it's initial state
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             loadRecipeDetail();
         }
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        Timber.d("supportFragmentInjector is called");
-        return supportFragmentInjector;
     }
 
     private void loadRecipeDetail() {
@@ -81,15 +81,17 @@ public class RecipeDetailActivity extends AppCompatActivity
         Timber.d("stepId " + stepId);
         Timber.d("stepCount " + stepCount);
 
-        // This is due to hack! First item of the adapter is "Recipe Ingredient"
-//        if(adapterPosition > 0) {
-            Intent recipeStepDetailActivity = new Intent(this, RecipeStepDetailActivity.class);
-            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_POSITION_INTENT_EXTRA, adapterPosition);
-            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_COUNT_INTENT_EXTRA, stepCount);
-            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_NAME_INTENT_EXTRA, recipeName);
-            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_ID_INTENT_EXTRA, recipeId);
-            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_ID_INTENT_EXTRA, stepId);
-            startActivity(recipeStepDetailActivity);
-//        }
+        Intent recipeStepDetailActivity = new Intent(this, RecipeStepDetailActivity.class);
+        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_POSITION_INTENT_EXTRA, adapterPosition);
+        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_COUNT_INTENT_EXTRA, stepCount);
+        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_NAME_INTENT_EXTRA, recipeName);
+        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_ID_INTENT_EXTRA, recipeId);
+        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_ID_INTENT_EXTRA, stepId);
+        startActivity(recipeStepDetailActivity);
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return supportFragmentInjector;
     }
 }
