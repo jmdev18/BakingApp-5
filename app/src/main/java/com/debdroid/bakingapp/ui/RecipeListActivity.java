@@ -33,7 +33,10 @@ public class RecipeListActivity extends AppCompatActivity
         setContentView(R.layout.activity_recipe_list);
 //        ButterKnife.bind(this);
 
-        loadRecipeListFragment();
+        // Fragment is created while orientation change, so load it if it's the initial state
+        if(savedInstanceState == null) {
+            loadRecipeListFragment();
+        }
     }
 
     private void loadRecipeListFragment() {

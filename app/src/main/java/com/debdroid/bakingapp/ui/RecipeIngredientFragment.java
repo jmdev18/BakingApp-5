@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -35,6 +37,9 @@ public class RecipeIngredientFragment extends Fragment {
     private Unbinder unbinder;
     private int recipeId;
 
+    private Parcelable linearLayoutManagerState;
+    private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
+
     public RecipeIngredientFragment() {
         // Required empty public constructor
     }
@@ -48,6 +53,9 @@ public class RecipeIngredientFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            linearLayoutManagerState = savedInstanceState.getParcelable(STATE_LINEAR_LAYOUT_MANAGER);
+        }
     }
 
     @Override
@@ -84,7 +92,23 @@ public class RecipeIngredientFragment extends Fragment {
         RecipeIngredientViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipeIngredientViewModel.class);
         viewModel.getIngredients(recipeId).observe(this,
-                ingredientSteps -> recipeIngredientAdapter.swapData(ingredientSteps));
+                (ingredientSteps) -> {
+                    recipeIngredientAdapter.swapData(ingredientSteps);
+                    // Restore the position
+                    if (linearLayoutManagerState != null) {
+                        recyclerView.getLayoutManager().onRestoreInstanceState(linearLayoutManagerState);
+                        // Set it to null so new value gets set
+                        linearLayoutManagerState = null;
+                    }
+                });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Timber.d("onSaveInstanceState called");
+        linearLayoutManagerState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManagerState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

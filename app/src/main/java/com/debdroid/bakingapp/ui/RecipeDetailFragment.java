@@ -3,8 +3,9 @@ package com.debdroid.bakingapp.ui;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,9 +17,7 @@ import android.view.ViewGroup;
 
 import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.ui.adapter.RecipeDetailAdapter;
-import com.debdroid.bakingapp.ui.adapter.RecipeListAdapter;
 import com.debdroid.bakingapp.viewmodel.RecipeDetailViewModel;
-import com.debdroid.bakingapp.viewmodel.RecipeListViewModel;
 
 import javax.inject.Inject;
 
@@ -46,6 +45,9 @@ public class RecipeDetailFragment extends Fragment {
     private OnRecipeDetailFragmentInteractionListener mListener;
     private int recipeId;
 
+    private Parcelable linearLayoutManagerState;
+    private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
+
     public RecipeDetailFragment() {
         // Required empty public constructor
     }
@@ -65,7 +67,14 @@ public class RecipeDetailFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Timber.d("onCreate called");
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            Timber.d("onCreate: restore State");
+            linearLayoutManagerState = savedInstanceState.getParcelable(STATE_LINEAR_LAYOUT_MANAGER);
+        } else {
+            Timber.d("onCreate: initial State");
+        }
     }
 
     @Override
@@ -73,9 +82,9 @@ public class RecipeDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
-        unbinder = ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
         recipeId = getArguments().getInt(RecipeDetailActivity.RECIPE_ID_INTENT_EXTRA, -1);
-        Timber.d("Recipe id"+recipeId);
+        Timber.d("Recipe id" + recipeId);
         return view;
     }
 
@@ -102,7 +111,26 @@ public class RecipeDetailFragment extends Fragment {
         RecipeDetailViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipeDetailViewModel.class);
         viewModel.getSteps(recipeId).observe(this,
-                stepEntities -> recipeDetailAdapter.swapData(stepEntities));
+                (stepEntities) -> {
+                    recipeDetailAdapter.swapData(stepEntities);
+                    // Restore the position
+                    if (linearLayoutManagerState != null) {
+                        Timber.d("linearLayoutManagerState is NOT null");
+                        recyclerView.getLayoutManager().onRestoreInstanceState(linearLayoutManagerState);
+                        // Set it to null so new value gets set
+                        linearLayoutManagerState = null;
+                    } else {
+                        Timber.d("linearLayoutManagerState is NULL");
+                    }
+                });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Timber.d("onSaveInstanceState called");
+        linearLayoutManagerState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManagerState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

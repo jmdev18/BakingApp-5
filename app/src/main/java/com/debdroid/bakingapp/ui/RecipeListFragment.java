@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +47,9 @@ public class RecipeListFragment extends Fragment {
 
     private OnRecipeListFragmentInteractionListener mListener;
 
+    private Parcelable linearLayoutManagerState;
+    private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
+
     public RecipeListFragment() {
         // Required empty public constructor
     }
@@ -67,6 +72,9 @@ public class RecipeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Timber.d("onCreate called");
+        if (savedInstanceState != null) {
+            linearLayoutManagerState = savedInstanceState.getParcelable(STATE_LINEAR_LAYOUT_MANAGER);
+        }
     }
 
     @Override
@@ -75,7 +83,7 @@ public class RecipeListFragment extends Fragment {
         Timber.d("onCreateView called");
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        unbinder = ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -99,7 +107,22 @@ public class RecipeListFragment extends Fragment {
         RecipeListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipeListViewModel.class);
         viewModel.getRecipes().observe(this,
-                recipeEntities -> recipeAdapter.swapData(recipeEntities));
+                (recipeEntities) -> {
+                    recipeAdapter.swapData(recipeEntities);
+                    // Restore the position
+                    if (linearLayoutManagerState != null) {
+                        recyclerView.getLayoutManager().onRestoreInstanceState(linearLayoutManagerState);
+                        // Set it to null so new value gets set
+                        linearLayoutManagerState = null;
+                    }
+                });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        linearLayoutManagerState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManagerState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.debdroid.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -50,6 +51,19 @@ public class RecipeDetailActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle(recipeName);
 
+        // Fragment is created automatically while orientation change, so create it if it's initial state
+        if(savedInstanceState == null) {
+            loadRecipeDetail();
+        }
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        Timber.d("supportFragmentInjector is called");
+        return supportFragmentInjector;
+    }
+
+    private void loadRecipeDetail() {
         Bundle bundle = new Bundle();
         bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
 
@@ -59,12 +73,6 @@ public class RecipeDetailActivity extends AppCompatActivity
         recipeDetailFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fl_recipe_detail_fragment_container, recipeDetailFragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        Timber.d("supportFragmentInjector is called");
-        return supportFragmentInjector;
     }
 
     @Override
