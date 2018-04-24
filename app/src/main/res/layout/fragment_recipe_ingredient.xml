@@ -8,14 +8,9 @@
     android:orientation="vertical"
     tools:context=".ui.RecipeStepDetailActivity">
 
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recipe_ingredient_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_recipe_ingredient_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

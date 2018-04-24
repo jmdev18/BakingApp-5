@@ -59,7 +59,9 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
             holder.recipeStepShortDescription.setText("Recipe Ingredients");
         } else {
             // Again due to the "Recipe Ingredients" hack, read position - 1
-            holder.recipeStepShortDescription.setText(stepEntityList.get(position - 1).shortDescription);
+            holder.recipeStepShortDescription
+                    // Remove trailing "."
+                    .setText(stepEntityList.get(position - 1).shortDescription.replace(".",""));
         }
     }
 
