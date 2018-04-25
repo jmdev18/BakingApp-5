@@ -45,6 +45,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
     private int recipeStepAdapterPosition;
     private int recipeStepCount;
     private int recipeId;
+    private String recipeName;
     private int stepId;
     private boolean isStepFragment = false;
 
@@ -67,7 +68,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
         recipeStepAdapterPosition = getIntent().getIntExtra(RECIPE_STEP_POSITION_INTENT_EXTRA, -1);
         recipeStepCount = getIntent().getIntExtra(RECIPE_STEP_COUNT_INTENT_EXTRA, -1);
         recipeId = getIntent().getIntExtra(RECIPE_ID_INTENT_EXTRA, -1);
-        String recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
+        recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
 
         if (!recipeName.isEmpty() && recipeName != null) {
             getSupportActionBar().setTitle(recipeName);
@@ -183,6 +184,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
 
         Bundle bundle = new Bundle();
         bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+        bundle.putString(RECIPE_NAME_INTENT_EXTRA, recipeName);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

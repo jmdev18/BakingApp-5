@@ -31,4 +31,16 @@ public @interface RecipeCustomScope {
     @Retention(RUNTIME)
     @interface RecipeStepDetailActivityScope {
     }
+
+    @Scope
+    @Documented
+    @Retention(RUNTIME)
+    @interface RecipeBroadcastReceiverScope {
+    }
+
+    @Scope
+    @Documented
+    @Retention(RUNTIME)
+    @interface RecipeServiceScope {
+    }
 }

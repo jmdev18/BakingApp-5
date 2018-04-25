@@ -1,0 +1,9 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="@dimen/widget_min_width_height"
+    android:minHeight="@dimen/widget_min_width_height"
+    android:updatePeriodMillis="36000000"
+    android:previewImage="@mipmap/ic_launcher"
+    android:initialLayout="@layout/baking_appwidget_layout"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen">
+</appwidget-provider>

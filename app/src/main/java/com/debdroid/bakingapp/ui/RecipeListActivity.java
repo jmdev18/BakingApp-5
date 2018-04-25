@@ -54,7 +54,8 @@ public class RecipeListActivity extends AppCompatActivity
 
     @Override
     public void onRecipeListFragmentInteraction(int recipeId, String recipeName) {
-        Timber.d("Recipe id"+recipeId);
+        Timber.d("onRecipeListFragmentInteraction:Recipe id - "+recipeId);
+        Timber.d("onRecipeListFragmentInteraction:Recipe name - "+recipeName);
         Intent recipeDetailActivity = new Intent(this, RecipeDetailActivity.class);
         recipeDetailActivity.putExtra(RecipeDetailActivity.RECIPE_ID_INTENT_EXTRA, recipeId);
         recipeDetailActivity.putExtra(RecipeDetailActivity.RECIPE_NAME_INTENT_EXTRA, recipeName);

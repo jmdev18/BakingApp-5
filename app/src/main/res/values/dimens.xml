@@ -12,4 +12,6 @@
     <dimen name="recipe_step_exo_player_height">260dp</dimen>
     <dimen name="exo_fullscreen_button_width_height">32dp</dimen>
     <dimen name="exo_fullscreen_icon_width_height">18dp</dimen>
+    <dimen name="widget_min_width_height">200dp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
 </resources>

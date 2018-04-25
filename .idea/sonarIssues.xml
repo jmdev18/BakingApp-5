@@ -108,6 +108,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/BakingBroadcastModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/BakingCustomScope.java">
           <value>
             <set />
@@ -134,6 +139,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeActivitiesModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeBroadcastModule.java">
           <value>
             <set />
           </value>
@@ -184,6 +194,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeListFragmentModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/dagger/RecipeServiceModule.java">
           <value>
             <set />
           </value>
@@ -363,6 +378,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/ui/widget/BakingAppWidgetProvider.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/ui/widget/BakingAppWidgetService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/utility/CommonUtility.java">
           <value>
             <set />
@@ -403,6 +428,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/debdroid/bakingapp/viewmodel/RecipeWidgetViewModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/drawable/item_touch_selector.xml">
           <value>
             <set />
@@ -424,6 +454,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_recipe_step_detail.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/baking_appwidget_layout.xml">
           <value>
             <set />
           </value>
@@ -473,6 +508,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values-v14/dimens.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <value>
             <set />
@@ -489,6 +529,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/xml/baking_appwidget_provider_info.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/xml/baking_widget.xml">
           <value>
             <set />
           </value>

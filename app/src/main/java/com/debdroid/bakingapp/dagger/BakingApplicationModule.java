@@ -2,7 +2,10 @@ package com.debdroid.bakingapp.dagger;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.database.BakingDatabase;
 import com.debdroid.bakingapp.database.IngredientDao;
 import com.debdroid.bakingapp.database.RecipeDao;
@@ -136,5 +139,13 @@ class BakingApplicationModule {
     @RecipeCustomScope.BakingApplicationScope
     static StepDao provideStepDao(BakingDatabase bakingDatabase) {
         return bakingDatabase.getStepDao();
+    }
+
+    // SharedPreference
+    @Provides
+    @RecipeCustomScope.BakingApplicationScope
+    static SharedPreferences provideSharedPreferences(Application app) {
+        return app.getSharedPreferences(app.getResources().getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
     }
 }

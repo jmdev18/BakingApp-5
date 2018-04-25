@@ -70,6 +70,12 @@ public class RecipeRepository {
         return ingredientDao.loadIngredientsForRecipeIdAsLiveData(recipeId);
     }
 
+    public List<IngredientEntity> getIngredientsAsList(int recipeId) {
+        // If program reaches at this stage then the data is already loaded, so no need to
+        // kick-off the data load; just return the steps
+        return ingredientDao.loadIngredientsForRecipeId(recipeId);
+    }
+
     private void loadRecipeListApi() {
         Call<List<Recipe>> recipeListDataCall = bakingJsonApiService.getRecipeList();
         recipeListDataCall.enqueue(new Callback<List<Recipe>>() {

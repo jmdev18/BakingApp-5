@@ -48,6 +48,9 @@ public class RecipeDetailActivity extends AppCompatActivity
         recipeId = getIntent().getIntExtra(RECIPE_ID_INTENT_EXTRA, -1);
         recipeName = getIntent().getStringExtra(RECIPE_NAME_INTENT_EXTRA);
 
+        Timber.d("onCreate:recipeId - " + recipeId);
+        Timber.d("onCreate:recipeName - " + recipeName);
+
         if (!recipeName.isEmpty() && recipeName != null) {
             getSupportActionBar().setTitle(recipeName);
         }
@@ -66,6 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity
     private void loadRecipeDetail() {
         Bundle bundle = new Bundle();
         bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+        bundle.putString(RECIPE_NAME_INTENT_EXTRA, recipeName);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

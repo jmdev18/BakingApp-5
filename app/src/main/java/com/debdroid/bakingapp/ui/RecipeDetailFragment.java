@@ -3,6 +3,7 @@ package com.debdroid.bakingapp.ui;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -37,6 +38,8 @@ public class RecipeDetailFragment extends Fragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferences sharedPreferences;
     @BindView(R.id.rv_recipe_step_description_list)
     RecyclerView recyclerView;
 
@@ -44,6 +47,7 @@ public class RecipeDetailFragment extends Fragment {
     private Unbinder unbinder;
     private OnRecipeDetailFragmentInteractionListener mListener;
     private int recipeId;
+    private String recipeName;
 
     private Parcelable linearLayoutManagerState;
     private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
@@ -84,7 +88,15 @@ public class RecipeDetailFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
         recipeId = getArguments().getInt(RecipeDetailActivity.RECIPE_ID_INTENT_EXTRA, -1);
-        Timber.d("Recipe id" + recipeId);
+        recipeName = getArguments().getString(RecipeDetailActivity.RECIPE_NAME_INTENT_EXTRA);
+
+        Timber.d("onCreateView:recipeName - "+recipeName);
+
+        if(recipeId == -1) {
+            Timber.e("Invalid Recipe id: " + recipeId);
+            return null;
+        }
+
         return view;
     }
 
@@ -123,6 +135,8 @@ public class RecipeDetailFragment extends Fragment {
                         Timber.d("linearLayoutManagerState is NULL");
                     }
                 });
+        // Store the id in SharedPreference
+        saveCurrentRecipeIdInSharedPreference();
     }
 
     @Override
@@ -145,6 +159,17 @@ public class RecipeDetailFragment extends Fragment {
         super.onDetach();
         Timber.d("onDetach called");
         mListener = null;
+    }
+
+    private void saveCurrentRecipeIdInSharedPreference() {
+        Timber.d("saveCurrentRecipeIdInSharedPreference is called");
+        Timber.d("saveCurrentRecipeIdInSharedPreference:recipeId - "+recipeId);
+        Timber.d("saveCurrentRecipeIdInSharedPreference:recipeName - "+recipeName);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getString(R.string.preference_recipe_id_key), recipeId);
+        editor.putString(getString(R.string.preference_recipe_name_key), recipeName);
+        editor.apply(); // Write asynchronously
     }
 
     /**

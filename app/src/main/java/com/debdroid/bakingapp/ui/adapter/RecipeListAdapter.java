@@ -43,7 +43,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
                 int adapterPosition = getAdapterPosition();
                 int recipeId = recipeEntityList.get(adapterPosition).id;
                 String recipeName = recipeEntityList.get(adapterPosition).name;
-                Timber.d("Recipe id"+recipeId);
+                Timber.d("RecipeListViewHolder:Recipe id - "+recipeId);
+                Timber.d("RecipeListViewHolder:Recipe name - "+recipeName);
                 recipeListAdapterOnClickHandler.onRecipeItemClick(recipeId, recipeName,this);
             });
         }
