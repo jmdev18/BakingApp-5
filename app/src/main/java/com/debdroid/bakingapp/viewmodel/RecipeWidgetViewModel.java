@@ -1,5 +1,6 @@
 package com.debdroid.bakingapp.viewmodel;
 
+import com.debdroid.bakingapp.dagger.RecipeCustomScope;
 import com.debdroid.bakingapp.database.IngredientEntity;
 import com.debdroid.bakingapp.repository.RecipeRepository;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+@RecipeCustomScope.RecipeServiceScope
 public class RecipeWidgetViewModel {
     private List<IngredientEntity> ingredientEntityList;
     private RecipeRepository recipeRepository;

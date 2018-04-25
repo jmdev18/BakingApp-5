@@ -2,13 +2,9 @@ package com.debdroid.bakingapp.ui.widget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
-import android.arch.lifecycle.LiveData;
 import android.content.ComponentName;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import com.debdroid.bakingapp.database.IngredientEntity;
@@ -28,8 +24,8 @@ public class BakingAppWidgetService extends IntentService {
     RecipeWidgetViewModel recipeWidgetViewModel;
 
     public static final String ACTION_RETRIEVE_INGREDIENT_LIST = "com.debdroid.bakingapp.action.retrieve_ingredient_list";
-    public static final String EXTRA_RECIPE_ID = "extra_recipe_id";;
-    public static final String EXTRA_RECIPE_NAME = "extra_recipe_name";;
+    public static final String EXTRA_RECIPE_ID = "extra_recipe_id";
+    public static final String EXTRA_RECIPE_NAME = "extra_recipe_name";
 
     public BakingAppWidgetService() {
         super("BakingAppWidgetService");
@@ -52,6 +48,7 @@ public class BakingAppWidgetService extends IntentService {
     @Override
     public void onCreate() {
         /** Always call this before super **/
+        AndroidInjection.inject(this);
         super.onCreate();
     }
 
@@ -79,7 +76,7 @@ public class BakingAppWidgetService extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingAppWidgetProvider.class));
 
-        //Now update all widgets
+        // Update all widgets
         BakingAppWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds ,
                 ingredients, recipeId, recipeName);
     }

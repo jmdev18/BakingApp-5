@@ -18,7 +18,6 @@ import timber.log.Timber;
 
 public class BakingAppWidgetProvider extends AppWidgetProvider {
 
-
     @Inject
     SharedPreferences sharedPreferences;
 
@@ -69,8 +68,10 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
 
     private void readFromSharedPreference(Context context) {
         Timber.d("readFromSharedPreference is called");
-        recipeId = sharedPreferences.getInt(context.getResources().getString(R.string.preference_recipe_id_key),-1);
-        recipeName = sharedPreferences.getString(context.getResources().getString(R.string.preference_recipe_name_key),"");
+        final int defaultRecipe = -1;
+        final String defaultRecipeName = "No Data";
+        recipeId = sharedPreferences.getInt(context.getResources().getString(R.string.preference_recipe_id_key),defaultRecipe);
+        recipeName = sharedPreferences.getString(context.getResources().getString(R.string.preference_recipe_name_key),defaultRecipeName);
     }
 
     public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager,

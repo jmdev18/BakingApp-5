@@ -46,8 +46,7 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
 
     @Override
     public void onBindViewHolder(@NonNull RecipeIngredientViewHolder holder, int position) {
-        NumberFormat numberFormat = new DecimalFormat("0.#");
-        String quantity = numberFormat.format(ingredientEntityList.get(position).quantity);
+        String quantity = CommonUtility.formatNumber(ingredientEntityList.get(position).quantity);
 
         String ingredientItem = (position + 1) + ". " +
                 CommonUtility.capitaliseFirstLetter(ingredientEntityList.get(position).ingredient) +
