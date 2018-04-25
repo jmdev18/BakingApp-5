@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
-public class BakingAppWidgetProvider extends AppWidgetProvider {
+public class RecipeAppWidgetProvider extends AppWidgetProvider {
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -63,7 +63,7 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
 
         readFromSharedPreference(context);
 
-        BakingAppWidgetService.retrieveIngredientList(context,recipeId,recipeName);
+        RecipeAppWidgetService.retrieveIngredientList(context,recipeId,recipeName);
     }
 
     private void readFromSharedPreference(Context context) {

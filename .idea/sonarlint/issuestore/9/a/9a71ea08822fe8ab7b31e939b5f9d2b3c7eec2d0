@@ -1,11 +1,6 @@
 
-@squid:S1068"+Remove this unused "mParam1" private field.(•Íï‘
-@squid:S1068"+Remove this unused "mParam2" private field.(¡ˆ€ 
-ksquid:S1450"VRemove the "mParam1" field and declare it as a local variable in the relevant methods.(•Íï‘
-ksquid:S1450"VRemove the "mParam2" field and declare it as a local variable in the relevant methods.(¡ˆ€ 
-Lsquid:S1135"2Complete the task associated to this TODO comment.(ÜûŠ—øÿÿÿÿ
-Lsquid:S1135"2Complete the task associated to this TODO comment.(ğï¢öúÿÿÿÿ
-Lsquid:S1135"2Complete the task associated to this TODO comment.(ßíŠÿÿÿÿÿ
-Gsquid:S1135"2Complete the task associated to this TODO comment.(åµÈ¶
-Gsquid:S1135"2Complete the task associated to this TODO comment.(‡‚ùˆ
-\squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±
+}squid:S1450"\Remove the "recipeAdapter" field and declare it as a local variable in the relevant methods.(²æòªùÿÿÿÿ8¢ƒœõ¯,
+=squid:S1170"!Make this final field static too.(õ¡Ú8¢ƒœõ¯,
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8¢ƒœõ¯,
+Xsquid:S1611"<Remove the parentheses around the "recipeEntities" parameter(éÃ¿8¢ƒœõ¯,
+ƒsquid:S00116"fRename this field "STATE_LINEAR_LAYOUT_MANAGER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡Ú8¢ƒœõ¯,

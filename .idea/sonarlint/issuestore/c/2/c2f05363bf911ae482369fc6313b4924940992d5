@@ -1,0 +1,8 @@
+
+squid:S00116"mRename this field "STATE_EXO_PLAYER_PLAYER_FULLSCREEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘¥ıÿÿÿÿ8Î¶õ¯,
+Bsquid:S1170"!Make this final field static too.(‘¥ıÿÿÿÿ8Î¶õ¯,
+’squid:S1450"qRemove the "exoPlayerFullScreenButtonContainer" field and declare it as a local variable in the relevant methods.(‰¢Úûÿÿÿÿ8Î¶õ¯,
+‹squid:S00116"iRename this field "STATE_EXO_PLAYER_RESUME_WINDOW" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ¬Ö¨ùÿÿÿÿ8Î¶õ¯,
+Bsquid:S1170"!Make this final field static too.(È¨²Øùÿÿÿÿ8Î¶õ¯,
+Bsquid:S1170"!Make this final field static too.(ğ¬Ö¨ùÿÿÿÿ8Î¶õ¯,
+squid:S00116"kRename this field "STATE_EXO_PLAYER_RESUME_POSITION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¨²Øùÿÿÿÿ8Î¶õ¯,

@@ -26,6 +26,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity
 
     @Inject
     DispatchingAndroidInjector<Fragment> supportFragmentInjector;
+
     @BindView(R.id.tb_recipe_step_detail_toolbar)
     Toolbar toolbar;
     @BindView(R.id.bt_recipe_step_prev_button)
@@ -48,7 +49,6 @@ public class RecipeStepDetailActivity extends AppCompatActivity
     private String recipeName;
     private int stepId;
     private boolean isStepFragment = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,11 +201,11 @@ public class RecipeStepDetailActivity extends AppCompatActivity
 
     private void setButtonStatus() {
         if (stepId == 0) {
-            Toast.makeText(this, "This is the first step", Toast.LENGTH_SHORT).show();
+           Timber.d("This is the first step");
             recipePrevStepButton.setEnabled(false);
             recipePrevStepButton.setAlpha(0.4f);
         } else if (stepId == recipeStepCount - 1) {
-            Toast.makeText(this, "This is the last step", Toast.LENGTH_SHORT).show();
+            Timber.d("This is the last step");
             recipeNextStepButton.setEnabled(false);
             recipeNextStepButton.setAlpha(0.4f);
         } else {

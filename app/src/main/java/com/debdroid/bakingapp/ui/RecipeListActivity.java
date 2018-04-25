@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.debdroid.bakingapp.R;
+import com.debdroid.bakingapp.utility.NetworkUtility;
 
 import javax.inject.Inject;
 
@@ -26,12 +27,14 @@ public class RecipeListActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Timber.d("onCreate is called");
         // Always Inject before super.onCreate, otherwise it fails while orientation change
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        Timber.d("onCreate is called");
         setContentView(R.layout.activity_recipe_list);
 //        ButterKnife.bind(this);
+
+        NetworkUtility.checkInternetConnection(getApplicationContext());
 
         // Fragment is automatically created while orientation change, so load it if it's the initial state
         if(savedInstanceState == null) {

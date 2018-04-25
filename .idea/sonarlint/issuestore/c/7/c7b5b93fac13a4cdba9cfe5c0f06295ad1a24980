@@ -1,13 +1,3 @@
 
-nsquid:UselessImportCheck"@Remove this unused import 'android.support.annotation.Nullable'.(Ö‹øïüÿÿÿÿ8èÔìÛ­,
-nsquid:UselessImportCheck"ERemove this unused import 'com.debdroid.bakingapp.BakingApplication'.(ŸŸ™‚8èÔìÛ­,
-xsquid:S1450"\Remove the "recipeAdapter" field and declare it as a local variable in the relevant methods.(ù§ïÌ8èÔìÛ­,
-qsquid:UselessImportCheck"HRemove this unused import 'android.support.v7.widget.GridLayoutManager'.(ŸéÖÚ8èÔìÛ­,
-psquid:UselessImportCheck"BRemove this unused import 'com.debdroid.bakingapp.datamodel.Step'.(õÉÉùÿÿÿÿ8èÔìÛ­,
-osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(¶”ôıùÿÿÿÿ8èÔìÛ­,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ëÉêñ8èÔìÛ­,
-rsquid:UselessImportCheck"IRemove this unused import 'com.debdroid.bakingapp.database.RecipeEntity'.( ¨í8èÔìÛ­,
-jsquid:UselessImportCheck"<Remove this unused import 'android.arch.lifecycle.Observer'.(ŞƒşÖÿÿÿÿÿ8èÔìÛ­,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(„ÅØ8èÔìÛ­,
-jsquid:CallToDeprecatedMethod"=Remove this use of "setAutoMeasureEnabled"; it is deprecated.(èä¹Ø8èÔìÛ­,
-psquid:UselessImportCheck"BRemove this unused import 'android.arch.lifecycle.ViewModelStore'.(±œÙĞÿÿÿÿÿ8èÔìÛ­,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Áìæş8‚şšõ¯,
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(’æ8‚şšõ¯,

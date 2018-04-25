@@ -56,7 +56,9 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     @Override
     public void onBindViewHolder(@NonNull RecipeStepViewHolder holder, int position) {
         if(position == 0) {
-            holder.recipeStepShortDescription.setText("Recipe Ingredients");
+            holder.recipeStepShortDescription
+                    .setText(holder.recipeStepShortDescription.getRootView()
+                            .getContext().getString(R.string.recipe_ingredients_title));
         } else {
             // Again due to the "Recipe Ingredients" hack, read position - 1
             holder.recipeStepShortDescription

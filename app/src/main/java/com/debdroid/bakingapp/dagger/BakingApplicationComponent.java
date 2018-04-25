@@ -18,7 +18,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         RecipeActivitiesModule.class,
         /* The module for widget provider which is a broadcast receiver */
         RecipeBroadcastModule.class,
-        /* The module for widget provider which is a broadcast receiver */
+        /* The module for service used for widget */
         RecipeServiceModule.class
         })
 public interface BakingApplicationComponent {

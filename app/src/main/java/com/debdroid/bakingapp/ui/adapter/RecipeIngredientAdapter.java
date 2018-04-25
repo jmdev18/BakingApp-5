@@ -2,7 +2,6 @@ package com.debdroid.bakingapp.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.database.IngredientEntity;
 import com.debdroid.bakingapp.utility.CommonUtility;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -110,7 +110,6 @@ public class RecipeDetailFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-//        linearLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         //Set this to false for smooth scrolling of RecyclerView
         recyclerView.setNestedScrollingEnabled(false);

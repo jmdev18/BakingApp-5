@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
-public class BakingAppWidgetService extends IntentService {
+public class RecipeAppWidgetService extends IntentService {
 
     @Inject
     RecipeWidgetViewModel recipeWidgetViewModel;
@@ -27,8 +27,8 @@ public class BakingAppWidgetService extends IntentService {
     public static final String EXTRA_RECIPE_ID = "extra_recipe_id";
     public static final String EXTRA_RECIPE_NAME = "extra_recipe_name";
 
-    public BakingAppWidgetService() {
-        super("BakingAppWidgetService");
+    public RecipeAppWidgetService() {
+        super("RecipeAppWidgetService");
     }
 
     /**
@@ -38,7 +38,7 @@ public class BakingAppWidgetService extends IntentService {
      * @see IntentService
      */
     public static void retrieveIngredientList(Context context, int recipeId, String recipeName) {
-        Intent intent = new Intent(context, BakingAppWidgetService.class);
+        Intent intent = new Intent(context, RecipeAppWidgetService.class);
         intent.setAction(ACTION_RETRIEVE_INGREDIENT_LIST);
         intent.putExtra(EXTRA_RECIPE_ID, recipeId);
         intent.putExtra(EXTRA_RECIPE_NAME, recipeName);
@@ -74,10 +74,10 @@ public class BakingAppWidgetService extends IntentService {
         Timber.d("readFromSharedPreference:ingredients - " + ingredients);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingAppWidgetProvider.class));
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeAppWidgetProvider.class));
 
         // Update all widgets
-        BakingAppWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds ,
+        RecipeAppWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds ,
                 ingredients, recipeId, recipeName);
     }
 }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.utility.CommonUtility;
+import com.debdroid.bakingapp.utility.NetworkUtility;
 import com.debdroid.bakingapp.viewmodel.RecipeStepDetailViewModel;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -126,12 +127,13 @@ public class RecipeStepDetailFragment extends Fragment {
             return;
         }
 
+        NetworkUtility.checkInternetConnection(getActivity().getApplicationContext());
+
         RecipeStepDetailViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipeStepDetailViewModel.class);
         viewModel.getStep(recipeId, stepId).observe(this,
                 stepEntity -> {
                     recipeInstructionTextView.setText(stepEntity.description);
-//                    recipeInstructionTextView.setText(stepEntity.description + "\n ForTesting: VideoURL-> " + stepEntity.videoURL);
                     String videoUrl = stepEntity.videoURL;
                     String thumbnailUrl = stepEntity.thumbnailURL;
 

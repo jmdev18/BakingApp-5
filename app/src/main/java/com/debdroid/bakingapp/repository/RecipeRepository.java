@@ -110,7 +110,7 @@ public class RecipeRepository {
                     stepDao.insertBulkSteps(stepEntityList);
                     isFirstTimeDataLoad = false; // Ensure load happened only once
                 } else {
-                    Timber.d("Json response is null");
+                    Timber.e("Json response is null");
                 }
                 return null;
             }

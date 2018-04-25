@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.debdroid.bakingapp">
 
+    <!-- Permission to access Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permission to check Internet connectivity status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:name=".BakingApplication"
@@ -39,14 +43,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.debdroid.bakingapp.ui.RecipeStepDetailActivity" />
         </activity>
-        <receiver android:name=".ui.widget.BakingAppWidgetProvider" >
+        <receiver android:name=".ui.widget.RecipeAppWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/baking_appwidget_provider_info" />
         </receiver>
-        <service android:name=".ui.widget.BakingAppWidgetService" />
+        <service android:name=".ui.widget.RecipeAppWidgetService" />
     </application>
 
 </manifest>

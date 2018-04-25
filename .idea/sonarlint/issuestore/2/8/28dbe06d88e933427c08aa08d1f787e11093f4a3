@@ -1,0 +1,12 @@
+
+Bsquid:S1170"!Make this final field static too.(Ñ×€’ûÿÿÿÿ8‹çœõ¯,
+usquid:S00116"XRename this field "STATE_STEP_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Ôà´8‹çœõ¯,
+ƒsquid:S00116"aRename this field "STATE_IS_STEP_FRAGMENT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ×€’ûÿÿÿÿ8‹çœõ¯,
+csquid:S1611"BRemove the parentheses around the "recipeNextStepButton" parameter(íÒıİüÿÿÿÿ8‹çœõ¯,
+=squid:S1170"!Make this final field static too.(“Ôà´8‹çœõ¯,
+Xsquid:S2589"7Remove this expression which always evaluates to "true"(¬äùÿÿÿÿ8‹çœõ¯,
+]squid:S1611"BRemove the parentheses around the "recipePrevStepButton" parameter(³÷*8‹çœõ¯,
+tsquid:HiddenFieldCheck"HRename "recipeNextStepButton" which hides the field declared at line 34.(íÒıİüÿÿÿÿ8‹çœõ¯,
+nsquid:HiddenFieldCheck"HRename "recipePrevStepButton" which hides the field declared at line 32.(³÷*8‹çœõ¯,
+„squid:S1450"hRemove the "recipeStepAdapterPosition" field and declare it as a local variable in the relevant methods.(ÂÄº°8‹çœõ¯,
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(…‡…Ì8‹çœõ¯,
