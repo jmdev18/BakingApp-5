@@ -57,8 +57,10 @@ public class RecipeDetailActivity extends AppCompatActivity
         Timber.d("onCreate:recipeId - " + recipeId);
         Timber.d("onCreate:recipeName - " + recipeName);
 
-        if (!recipeName.isEmpty() && recipeName != null) {
-            getSupportActionBar().setTitle(recipeName);
+        if (recipeName != null) {
+            if (!recipeName.isEmpty()) {
+                getSupportActionBar().setTitle(recipeName);
+            }
         }
 
         if (recipeId == -1) {
@@ -68,11 +70,11 @@ public class RecipeDetailActivity extends AppCompatActivity
 
         // Fragment is created automatically while orientation change, so create it if it's initial state
         if (savedInstanceState == null) {
-            loadRecipeDetailPhone();
+            loadRecipeDetail();
         }
     }
 
-    private void loadRecipeDetailPhone() {
+    private void loadRecipeDetail() {
         Bundle bundle = new Bundle();
         bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
         bundle.putString(RECIPE_NAME_INTENT_EXTRA, recipeName);

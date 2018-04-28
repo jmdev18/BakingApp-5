@@ -73,6 +73,36 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeDetailActivityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeDetailIntentTesting.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeIntentsTesting.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeListActivityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeRestOfActivitiesTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeStepDetailIntentTesting.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/debdroid/bakingapp/util/TestDatabaseUtil.java">
           <value>
             <set />
