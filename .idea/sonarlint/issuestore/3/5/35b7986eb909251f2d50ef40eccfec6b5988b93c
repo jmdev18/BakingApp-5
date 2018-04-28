@@ -1,6 +1,6 @@
 
-ƒsquid:S1450"bRemove the "recipeDetailAdapter" field and declare it as a local variable in the relevant methods.(¥Ûê·ùÿÿÿÿ8†È˜õ¯,
-ƒsquid:S00116"fRename this field "STATE_LINEAR_LAYOUT_MANAGER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡Ú8†È˜õ¯,
-Vsquid:S1611":Remove the parentheses around the "stepEntities" parameter(íããğ8†È˜õ¯,
-csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8†È˜õ¯,
-=squid:S1170"!Make this final field static too.(õ¡Ú8†È˜õ¯,
+ƒsquid:S00116"fRename this field "STATE_LINEAR_LAYOUT_MANAGER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡Ú8ŠäÌÏ°,
+ƒsquid:S1450"bRemove the "recipeDetailAdapter" field and declare it as a local variable in the relevant methods.(¥Ûê·ùÿÿÿÿ8ŠäÌÏ°,
+=squid:S1170"!Make this final field static too.(õ¡Ú8ŠäÌÏ°,
+Vsquid:S1611":Remove the parentheses around the "stepEntities" parameter(íããğ8ŠäÌÏ°,
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8ŠäÌÏ°,

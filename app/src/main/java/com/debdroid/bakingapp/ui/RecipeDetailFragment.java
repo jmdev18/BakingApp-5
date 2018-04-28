@@ -22,6 +22,7 @@ import com.debdroid.bakingapp.viewmodel.RecipeDetailViewModel;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -42,6 +43,8 @@ public class RecipeDetailFragment extends Fragment {
     SharedPreferences sharedPreferences;
     @BindView(R.id.rv_recipe_step_description_list)
     RecyclerView recyclerView;
+    @BindBool(R.bool.tablet_mode)
+    boolean isTabletMode;
 
     private RecipeDetailAdapter recipeDetailAdapter;
     private Unbinder unbinder;
@@ -103,7 +106,7 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recipeDetailAdapter = new RecipeDetailAdapter(
+        recipeDetailAdapter = new RecipeDetailAdapter(isTabletMode,
                 ((pos, stepId, stepCount, vh) ->
                         mListener.onRecipeDetailFragmentInteraction(pos, stepId, stepCount)));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

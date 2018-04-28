@@ -14,12 +14,12 @@
     android:foreground="?android:attr/selectableItemBackground">
 
 <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_single_recipe_image"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/single_recipe_image_width_tablet"
             android:layout_height="@dimen/single_recipe_image_height"
             android:contentDescription="@string/single_recipe_image_content_description"
             android:gravity="center"

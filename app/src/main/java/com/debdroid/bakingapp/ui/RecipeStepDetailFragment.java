@@ -39,6 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -62,6 +63,8 @@ public class RecipeStepDetailFragment extends Fragment {
     ImageView exoPlayerFallbackImageView;
     @BindView(R.id.recipe_step_media_container)
     FrameLayout mediaContainerFrameLayout;
+    @BindBool(R.bool.tablet_mode)
+    boolean isTabletMode;
 
     private SimpleExoPlayer simpleExoPlayer;
     private Dialog exoPlayerFullScreenDialog;
@@ -144,9 +147,10 @@ public class RecipeStepDetailFragment extends Fragment {
                         // Initialize the ExoPlayer
                         initializeExoPlayer(Uri.parse(stepEntity.videoURL));
 
-                        // Show the image only in portrait mode
-                    } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        mediaContainerFrameLayout.setVisibility(FrameLayout.VISIBLE); // Make it visible always in portrait mode
+                        // Show the image only in portrait mode for phone and any orientation for Tablet
+                    } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ||
+                            isTabletMode) {
+                        mediaContainerFrameLayout.setVisibility(FrameLayout.VISIBLE); // Make it visible always in portrait mode and for tablet
                         if (!thumbnailUrl.isEmpty() && thumbnailUrl != null) { // If we do not have the videoUrl then check if we have a thumbnail image
                             exoPlayerFallbackImageView.setVisibility(ImageView.VISIBLE);
                             picasso.load(thumbnailUrl)
@@ -158,7 +162,7 @@ public class RecipeStepDetailFragment extends Fragment {
                             exoPlayerFallbackImageView.setVisibility(ImageView.VISIBLE);
                             exoPlayerFallbackImageView.setImageResource(CommonUtility.getFallbackImageId(recipeId - 1));
                         }
-                    } else {
+                    } else { // This is true when orientation=landscape and Phone
                         mediaContainerFrameLayout.setVisibility(FrameLayout.GONE);
                     }
                 });
@@ -245,13 +249,13 @@ public class RecipeStepDetailFragment extends Fragment {
                 Timber.d("ExoPlayer has no resume position saved");
             }
 
-            // Check if it's landscape mode, if yes then always show the player in full screen
-            int orientation = getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Check if it's landscape mode and phone, if yes then always show the player in full screen
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+                    && !isTabletMode) {
                 openFullscreenDialog();
                 // Disable the fullscreen exit button, so that in landscape mode video is always fullscreen
                 exoPlayerFullScreenIcon.setVisibility(ImageView.GONE);
-                // Set this to false to return to normal behaviour
+                // Set this to false to return to normal behaviour (i.e. regular handling of fullscreen)
                 exoPlayerFullscreen = false;
             } else {
                 exoPlayerFullScreenIcon.setVisibility(ImageView.VISIBLE);

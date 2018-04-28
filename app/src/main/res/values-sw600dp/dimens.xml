@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="recipe_list_margin">24dp</dimen>
+    <dimen name="recipe_step_exo_player_height">460dp</dimen>
+    <dimen name="single_recipe_image_width_tablet">360dp</dimen>
+</resources>

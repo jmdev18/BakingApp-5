@@ -12,6 +12,7 @@ import com.debdroid.bakingapp.R;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
@@ -19,6 +20,8 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import timber.log.Timber;
+
+import static com.debdroid.bakingapp.ui.RecipeStepDetailActivity.RECIPE_STEP_ID_INTENT_EXTRA;
 
 public class RecipeDetailActivity extends AppCompatActivity
         implements HasSupportFragmentInjector,
@@ -28,6 +31,9 @@ public class RecipeDetailActivity extends AppCompatActivity
     DispatchingAndroidInjector<Fragment> supportFragmentInjector;
     @BindView(R.id.tb_recipe_detail_toolbar)
     Toolbar toolbar;
+    @BindBool(R.bool.tablet_mode)
+    boolean isTabletMode;
+
     int recipeId;
     String recipeName;
 
@@ -62,11 +68,11 @@ public class RecipeDetailActivity extends AppCompatActivity
 
         // Fragment is created automatically while orientation change, so create it if it's initial state
         if (savedInstanceState == null) {
-            loadRecipeDetail();
+            loadRecipeDetailPhone();
         }
     }
 
-    private void loadRecipeDetail() {
+    private void loadRecipeDetailPhone() {
         Bundle bundle = new Bundle();
         bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
         bundle.putString(RECIPE_NAME_INTENT_EXTRA, recipeName);
@@ -85,13 +91,37 @@ public class RecipeDetailActivity extends AppCompatActivity
         Timber.d("stepId " + stepId);
         Timber.d("stepCount " + stepCount);
 
-        Intent recipeStepDetailActivity = new Intent(this, RecipeStepDetailActivity.class);
-        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_POSITION_INTENT_EXTRA, adapterPosition);
-        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_COUNT_INTENT_EXTRA, stepCount);
-        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_NAME_INTENT_EXTRA, recipeName);
-        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_ID_INTENT_EXTRA, recipeId);
-        recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_ID_INTENT_EXTRA, stepId);
-        startActivity(recipeStepDetailActivity);
+        if (isTabletMode && adapterPosition == 0) { // Load the ingredient
+            Bundle bundle = new Bundle();
+            bundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+            bundle.putString(RECIPE_NAME_INTENT_EXTRA, recipeName);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RecipeIngredientFragment recipeIngredientFragment = new RecipeIngredientFragment();
+            recipeIngredientFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeIngredientFragment);
+            fragmentTransaction.commit();
+        } else if (isTabletMode && adapterPosition > 0) { // Load the stepdetail
+            Bundle recipeStepDetailBundle = new Bundle();
+            recipeStepDetailBundle.putInt(RECIPE_ID_INTENT_EXTRA, recipeId);
+            recipeStepDetailBundle.putInt(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+            recipeStepDetailFragment.setArguments(recipeStepDetailBundle);
+            fragmentTransaction.replace(R.id.fl_recipe_step_detail_fragment_container, recipeStepDetailFragment);
+            fragmentTransaction.commit();
+        } else { // Load new Activity for phone
+            Intent recipeStepDetailActivity = new Intent(this, RecipeStepDetailActivity.class);
+            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_POSITION_INTENT_EXTRA, adapterPosition);
+            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_STEP_COUNT_INTENT_EXTRA, stepCount);
+            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_NAME_INTENT_EXTRA, recipeName);
+            recipeStepDetailActivity.putExtra(RecipeStepDetailActivity.RECIPE_ID_INTENT_EXTRA, recipeId);
+            recipeStepDetailActivity.putExtra(RECIPE_STEP_ID_INTENT_EXTRA, stepId);
+            startActivity(recipeStepDetailActivity);
+        }
     }
 
     @Override

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/primary_background"
     android:orientation="vertical"
     tools:context=".ui.RecipeStepDetailFragment">
 
@@ -14,6 +14,7 @@
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/recipe_step_exo_player_view"
+            android:layout_marginTop="@dimen/exo_player_top_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_step_exo_player_height" />
 

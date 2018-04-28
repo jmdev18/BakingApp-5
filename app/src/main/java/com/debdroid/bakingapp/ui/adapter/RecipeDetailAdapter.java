@@ -13,6 +13,7 @@ import com.debdroid.bakingapp.database.StepEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,14 +21,21 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
 
     private List<StepEntity> stepEntityList = new ArrayList<>();
     private RecipeDetailAdapterOnClickHandler recipeDetailAdapterOnClickHandler;
+    private static int currPosition = -1; // Define as static so that it gets retained along with class (orientation saved!)
+    private boolean isTabletMode;
 
-    public RecipeDetailAdapter(RecipeDetailAdapterOnClickHandler clickHandler) {
+    public RecipeDetailAdapter(boolean isTabletMode, RecipeDetailAdapterOnClickHandler clickHandler) {
         recipeDetailAdapterOnClickHandler = clickHandler;
+        this.isTabletMode = isTabletMode;
     }
 
     public class RecipeStepViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_recipe_step_short_description)
         TextView recipeStepShortDescription;
+        @BindColor(R.color.accent)
+        int colorAccent;
+        @BindColor(R.color.primary_background)
+        int colorPrimaryBackground;
 
         private RecipeStepViewHolder(final View view) {
             super(view);
@@ -42,6 +50,12 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
                 int stepCount = stepEntityList.size();
                 recipeDetailAdapterOnClickHandler.onRecipeItemClick(adapterPosition, stepId,
                         stepCount, this);
+
+                // Store the position of the view clicked - need this to highlight clicked item for tablet only
+                if(isTabletMode) {
+                    currPosition = adapterPosition;
+                    notifyDataSetChanged(); // Call this to re-populate recyclerview, it helps to remove previously colored item
+                }
             });
         }
     }
@@ -64,6 +78,15 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
             holder.recipeStepShortDescription
                     // Remove trailing "."
                     .setText(stepEntityList.get(position - 1).shortDescription.replace(".",""));
+        }
+
+        // If it's tablet mode then set the background color of the clicked item
+        if(isTabletMode) {
+            if (position == currPosition) {
+                holder.itemView.setBackgroundColor(holder.colorAccent);
+            } else {
+                holder.itemView.setBackgroundColor(holder.colorPrimaryBackground);
+            }
         }
     }
 

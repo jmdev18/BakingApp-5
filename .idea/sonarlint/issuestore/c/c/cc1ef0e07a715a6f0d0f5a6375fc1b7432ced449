@@ -1,0 +1,8 @@
+
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(àãßý8ÖŠÔÏ°,
+csquid:UselessImportCheck"5Remove this unused import 'android.view.MotionEvent'.(˜šËÞúÿÿÿÿ8ÖŠÔÏ°,
+Gsquid:S3010"+Remove this assignment of "sSelectedItems".( È÷õ8ÖŠÔÏ°,
+Nsquid:S1068"2Remove this unused "sSelectedItems" private field.(Áº«Þ8ÖŠÔÏ°,
+asquid:UselessImportCheck"3Remove this unused import 'android.graphics.Color'.(øãíòþÿÿÿÿ8ÖŠÔÏ°,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(£²˜»8ÖŠÔÏ°,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(³áË™ýÿÿÿÿ8ÖŠÔÏ°,

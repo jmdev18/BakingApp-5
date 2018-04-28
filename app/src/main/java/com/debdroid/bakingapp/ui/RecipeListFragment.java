@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -41,6 +43,8 @@ public class RecipeListFragment extends Fragment {
     Picasso picasso;
     @BindView(R.id.rv_recipe_list)
     RecyclerView recyclerView;
+    @BindBool(R.bool.tablet_mode)
+    boolean isTabletMode;
 
     private RecipeListAdapter recipeAdapter;
     private Unbinder unbinder;
@@ -91,8 +95,13 @@ public class RecipeListFragment extends Fragment {
         Timber.d("onActivityCreated called");
         recipeAdapter = new RecipeListAdapter(picasso,
                 ((recipeId, recipeName, vh) -> mListener.onRecipeListFragmentInteraction(recipeId, recipeName)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        if(isTabletMode) { // For table use the gridlayout
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        } else {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
         //Set this to false for smooth scrolling of RecyclerView
         recyclerView.setNestedScrollingEnabled(false);
         //Set this to false so that activity starts the page from the beginning

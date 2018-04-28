@@ -147,3 +147,13 @@ Qapp/src/main/java/com/debdroid/bakingapp/viewmodel/RecipeIngredientViewModel.ja
 Qapp/src/main/java/com/debdroid/bakingapp/viewmodel/RecipeStepDetailViewModel.java,6/e/6eb8589022dac82a194e7538cc6b0e2bfd4e67bd
 }
 Mapp/src/main/java/com/debdroid/bakingapp/viewmodel/RecipeWidgetViewModel.java,a/4/a4ea0cb1131c9f3b27dd8a9184d6ee73bf78eeee
+Q
+!app/src/main/res/values/bools.xml,0/d/0d93437d93d396affcedc653b34211547eabb19b
+Y
+)app/src/main/res/values-sw600dp/bools.xml,1/7/17dffbaeea11959c71bd1a53b233d2cd54c5566b
+f
+6app/src/main/res/layout-sw600dp/single_recipe_item.xml,9/7/973619fc336773309c8eae3c227d192ab72df37d
+j
+:app/src/main/res/layout-sw600dp/activity_recipe_detail.xml,2/e/2e12dbc67488149d8132282a481c3963d83fcc8a
+Z
+*app/src/main/res/values-sw600dp/dimens.xml,9/0/90dcae36ba4a7984307c4a92e27c738496d99714
