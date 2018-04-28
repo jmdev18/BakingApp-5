@@ -2,7 +2,6 @@ package com.debdroid.bakingapp.utility;
 
 import com.debdroid.bakingapp.R;
 import com.debdroid.bakingapp.database.IngredientEntity;
-import com.debdroid.bakingapp.datamodel.Ingredient;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

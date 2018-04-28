@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
 
 import butterknife.BindBool;
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -45,6 +47,8 @@ public class RecipeListFragment extends Fragment {
     RecyclerView recyclerView;
     @BindBool(R.bool.tablet_mode)
     boolean isTabletMode;
+    @BindDimen(R.dimen.single_recipe_image_width)
+    float recipeCardWidth;
 
     private RecipeListAdapter recipeAdapter;
     private Unbinder unbinder;
@@ -96,7 +100,8 @@ public class RecipeListFragment extends Fragment {
         recipeAdapter = new RecipeListAdapter(picasso,
                 ((recipeId, recipeName, vh) -> mListener.onRecipeListFragmentInteraction(recipeId, recipeName)));
         if(isTabletMode) { // For table use the gridlayout
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+            int spanCount = determineNumOfColumns();
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), spanCount);
             recyclerView.setLayoutManager(gridLayoutManager);
         } else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -143,6 +148,19 @@ public class RecipeListFragment extends Fragment {
         super.onDetach();
         Timber.d("onDetach called");
         mListener = null;
+    }
+
+    /**
+     * This method dynamically determines the number of column for the RecyclerView based on
+     * screen width and density
+     * @return number of calculated columns
+     */
+    private int determineNumOfColumns() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int columnWidth = (int) (recipeCardWidth / displayMetrics.density);
+        int numOfColumn = (int) dpWidth / columnWidth;
+        return numOfColumn;
     }
 
     /**

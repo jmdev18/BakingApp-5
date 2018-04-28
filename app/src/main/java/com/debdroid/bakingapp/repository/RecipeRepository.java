@@ -94,7 +94,7 @@ public class RecipeRepository {
 
     }
 
-    private void insertData(final Response<List<Recipe>> response) {
+    private void insertData(final Response<List<Recipe>> response) { // Room does not allow operation on main thread
         @SuppressLint("StaticFieldLeak")
         final AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -108,7 +108,7 @@ public class RecipeRepository {
                     recipeDao.insertBulkRecipes(recipeEntityList);
                     ingredientDao.insertBulkIngredients(ingredientEntityList);
                     stepDao.insertBulkSteps(stepEntityList);
-                    isFirstTimeDataLoad = false; // Ensure load happened only once
+                    isFirstTimeDataLoad = false; // Ensure load happens only once
                 } else {
                     Timber.e("Json response is null");
                 }

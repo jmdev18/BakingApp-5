@@ -448,6 +448,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/activity_recipe_detail.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/single_recipe_item.xml">
           <value>
             <set />

@@ -24,7 +24,9 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fl_recipe_detail_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/recipe_detail_fragment_container_margin"
+        android:background="@color/divider_color">
     </FrameLayout>
 
 </LinearLayout>

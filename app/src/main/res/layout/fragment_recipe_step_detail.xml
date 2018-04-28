@@ -10,11 +10,11 @@
     <FrameLayout
         android:id="@+id/recipe_step_media_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/recipe_step_exo_player_view"
-            android:layout_marginTop="@dimen/exo_player_top_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_step_exo_player_height" />
 
@@ -27,14 +27,24 @@
             android:scaleType="centerCrop"
             android:visibility="gone"/>
     </FrameLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/primary_background" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
     <TextView
         android:id="@+id/tv_recipe_step_instruction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:padding="@dimen/recipe_step_instruction_padding"
+        android:layout_margin="@dimen/recipe_step_instruction_padding"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/primary_text"
         tools:text="This is the recipe instruction" />
+    </FrameLayout>
 </LinearLayout>

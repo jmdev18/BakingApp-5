@@ -32,7 +32,6 @@ public class RecipeListActivity extends AppCompatActivity
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-//        ButterKnife.bind(this);
 
         NetworkUtility.checkInternetConnection(getApplicationContext());
 

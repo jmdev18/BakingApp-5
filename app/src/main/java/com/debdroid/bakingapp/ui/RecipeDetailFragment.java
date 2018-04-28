@@ -51,9 +51,11 @@ public class RecipeDetailFragment extends Fragment {
     private OnRecipeDetailFragmentInteractionListener mListener;
     private int recipeId;
     private String recipeName;
+    private int clickedPosition;
 
     private Parcelable linearLayoutManagerState;
     private final String STATE_LINEAR_LAYOUT_MANAGER = "state_linear_layout_manager";
+    private final String STATE_ITEM_CLICKED_POSITION = "state_item_clicked_position";
 
     public RecipeDetailFragment() {
         // Required empty public constructor
@@ -79,7 +81,10 @@ public class RecipeDetailFragment extends Fragment {
         if (savedInstanceState != null) {
             Timber.d("onCreate: restore State");
             linearLayoutManagerState = savedInstanceState.getParcelable(STATE_LINEAR_LAYOUT_MANAGER);
+            clickedPosition = savedInstanceState.getInt(STATE_ITEM_CLICKED_POSITION);
+            Timber.d("Cliecked position -> " + clickedPosition);
         } else {
+            clickedPosition = -1;
             Timber.d("onCreate: initial State");
         }
     }
@@ -106,9 +111,11 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recipeDetailAdapter = new RecipeDetailAdapter(isTabletMode,
-                ((pos, stepId, stepCount, vh) ->
-                        mListener.onRecipeDetailFragmentInteraction(pos, stepId, stepCount)));
+        recipeDetailAdapter = new RecipeDetailAdapter(isTabletMode, clickedPosition,
+                ((pos, stepId, stepCount, vh) -> {
+                        mListener.onRecipeDetailFragmentInteraction(pos, stepId, stepCount);
+                    clickedPosition = pos;
+                }));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
@@ -146,6 +153,7 @@ public class RecipeDetailFragment extends Fragment {
         Timber.d("onSaveInstanceState called");
         linearLayoutManagerState = recyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManagerState);
+        outState.putInt(STATE_ITEM_CLICKED_POSITION, clickedPosition);
         super.onSaveInstanceState(outState);
     }
 

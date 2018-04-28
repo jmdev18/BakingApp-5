@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/primary_background"
     tools:context=".ui.RecipeStepDetailActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -23,6 +23,7 @@
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fl_recipe_step_detail_fragment_container"
+        android:layout_margin="@dimen/recipe_step_detail_fragment_container_margin"
         android:layout_below="@id/recipe_step_detail_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

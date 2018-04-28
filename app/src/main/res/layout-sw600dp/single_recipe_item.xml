@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/single_recipe_image_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     cardview:cardBackgroundColor="@color/primary"
@@ -10,7 +10,6 @@
     cardview:cardElevation="@dimen/card_view_elevation"
     cardview:cardUseCompatPadding="true"
     android:layout_margin="@dimen/recipe_list_margin"
-    android:background="@drawable/recipe_card_item_touch_selector"
     android:foreground="?android:attr/selectableItemBackground">
 
 <RelativeLayout
@@ -19,7 +18,7 @@
 
         <ImageView
             android:id="@+id/iv_single_recipe_image"
-            android:layout_width="@dimen/single_recipe_image_width_tablet"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/single_recipe_image_height"
             android:contentDescription="@string/single_recipe_image_content_description"
             android:gravity="center"
@@ -35,7 +34,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:padding="@dimen/grid_text_padding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/primary_text"
             tool:text="Recipe Name"/>
     </RelativeLayout>

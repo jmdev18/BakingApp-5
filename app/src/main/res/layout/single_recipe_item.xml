@@ -10,7 +10,6 @@
     cardview:cardElevation="@dimen/card_view_elevation"
     cardview:cardUseCompatPadding="true"
     android:layout_margin="@dimen/recipe_list_margin"
-    android:background="@drawable/recipe_card_item_touch_selector"
     android:foreground="?android:attr/selectableItemBackground">
 
 <RelativeLayout
@@ -35,7 +34,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:padding="@dimen/grid_text_padding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/primary_text"
             tool:text="Recipe Name"/>
     </RelativeLayout>

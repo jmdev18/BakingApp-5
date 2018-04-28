@@ -16,17 +16,22 @@ import java.util.List;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.RecipeStepViewHolder> {
 
     private List<StepEntity> stepEntityList = new ArrayList<>();
     private RecipeDetailAdapterOnClickHandler recipeDetailAdapterOnClickHandler;
-    private static int currPosition = -1; // Define as static so that it gets retained along with class (orientation saved!)
+    private int currPosition;
     private boolean isTabletMode;
 
-    public RecipeDetailAdapter(boolean isTabletMode, RecipeDetailAdapterOnClickHandler clickHandler) {
+    public RecipeDetailAdapter(boolean isTabletMode, int clickedPosition,
+                               RecipeDetailAdapterOnClickHandler clickHandler) {
+        Timber.d("RecipeDetailAdapter constructor is called");
+        Timber.d("RecipeDetailAdapter constructor: clickedPosition -> " + clickedPosition);
         recipeDetailAdapterOnClickHandler = clickHandler;
         this.isTabletMode = isTabletMode;
+        currPosition = clickedPosition;
     }
 
     public class RecipeStepViewHolder extends RecyclerView.ViewHolder {
@@ -34,8 +39,8 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
         TextView recipeStepShortDescription;
         @BindColor(R.color.accent)
         int colorAccent;
-        @BindColor(R.color.primary_background)
-        int colorPrimaryBackground;
+        @BindColor(R.color.primary)
+        int colorPrimary;
 
         private RecipeStepViewHolder(final View view) {
             super(view);
@@ -85,7 +90,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
             if (position == currPosition) {
                 holder.itemView.setBackgroundColor(holder.colorAccent);
             } else {
-                holder.itemView.setBackgroundColor(holder.colorPrimaryBackground);
+                holder.itemView.setBackgroundColor(holder.colorPrimary);
             }
         }
     }
@@ -109,6 +114,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
 
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        Timber.d("onDetachedFromRecyclerView is called");
         super.onDetachedFromRecyclerView(recyclerView);
         recipeDetailAdapterOnClickHandler = null;
     }
