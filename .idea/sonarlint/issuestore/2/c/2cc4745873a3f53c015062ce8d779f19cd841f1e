@@ -1,5 +1,5 @@
 
-‡squid:S1450"fRemove the "recipeIngredientAdapter" field and declare it as a local variable in the relevant methods.(Ô­šñýÿÿÿÿ8«¬šõ¯,
-=squid:S1170"!Make this final field static too.(õ¡ÚŽ8«¬šõ¯,
-Ysquid:S1611"=Remove the parentheses around the "ingredientSteps" parameter(àÊâî8«¬šõ¯,
-ƒsquid:S00116"fRename this field "STATE_LINEAR_LAYOUT_MANAGER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡ÚŽ8«¬šõ¯,
+‡squid:S1450"fRemove the "recipeIngredientAdapter" field and declare it as a local variable in the relevant methods.(Ô­šñýÿÿÿÿ8Íð¯ë°,
+=squid:S1170"!Make this final field static too.(õ¡ÚŽ8Íð¯ë°,
+Ysquid:S1611"=Remove the parentheses around the "ingredientSteps" parameter(àÊâî8Íð¯ë°,
+ƒsquid:S00116"fRename this field "STATE_LINEAR_LAYOUT_MANAGER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡ÚŽ8Íð¯ë°,

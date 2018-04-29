@@ -76,12 +76,15 @@ public class RecipeStepDetailFragment extends Fragment {
     private Unbinder unbinder;
     private int recipeId;
     private int stepId;
+    private boolean exoPlayerPlayWhenReady = true; // True ensures the player starts automatically first time
 
     private final String STATE_EXO_PLAYER_RESUME_WINDOW = "exo_player_resume_window";
     private final String STATE_EXO_PLAYER_RESUME_POSITION = "exo_player_resume_position";
     private final String STATE_EXO_PLAYER_PLAYER_FULLSCREEN = "exo_player_player_full_screen";
+    private final String STATE_EXO_PLAYER_PLAY_WHEN_READY = "exo_player_play_when_ready";
 
     public RecipeStepDetailFragment() {
+        Timber.d("RecipeStepDetailFragment constructor is called");
         // Required empty public constructor
     }
 
@@ -101,7 +104,9 @@ public class RecipeStepDetailFragment extends Fragment {
             exoPlayerResumeWindow = savedInstanceState.getInt(STATE_EXO_PLAYER_RESUME_WINDOW);
             exoPlayerResumePosition = savedInstanceState.getLong(STATE_EXO_PLAYER_RESUME_POSITION);
             exoPlayerFullscreen = savedInstanceState.getBoolean(STATE_EXO_PLAYER_PLAYER_FULLSCREEN);
+            exoPlayerPlayWhenReady = savedInstanceState.getBoolean(STATE_EXO_PLAYER_PLAY_WHEN_READY);
             Timber.d("onCreate: exoPlayerResumePosition -> " + exoPlayerResumePosition);
+            Timber.d("onCreate: exoPlayerPlayWhenReady -> " + exoPlayerPlayWhenReady);
         } else {
             Timber.d("onCreate: initial state");
         }
@@ -185,13 +190,28 @@ public class RecipeStepDetailFragment extends Fragment {
         if (exoPlayerView != null && simpleExoPlayer != null) {
             exoPlayerResumeWindow = simpleExoPlayer.getCurrentWindowIndex();
             exoPlayerResumePosition = Math.max(0, simpleExoPlayer.getContentPosition());
+            // Save the state of exoPlayer - As suggested by Udacity project reviewer
+            exoPlayerPlayWhenReady = simpleExoPlayer.getPlayWhenReady();
             Timber.d("onPause:exoPlayerResumeWindow-> " + exoPlayerResumeWindow);
             Timber.d("onPause:exoPlayerResumePosition-> " + exoPlayerResumePosition);
+            Timber.d("onPause:exoPlayerPlayWhenReady-> " + exoPlayerPlayWhenReady);
         }
 
         if (exoPlayerFullScreenDialog != null) {
             exoPlayerFullScreenDialog.dismiss();
         }
+
+        //Release exoPlayer - As suggested by Udacity project reviewer
+        releaseExoPlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.d("onStop is called");
+
+        //Release exoPlayer - As suggested by Udacity project reviewer
+        releaseExoPlayer();
     }
 
     @Override
@@ -200,6 +220,7 @@ public class RecipeStepDetailFragment extends Fragment {
         outState.putInt(STATE_EXO_PLAYER_RESUME_WINDOW, exoPlayerResumeWindow);
         outState.putLong(STATE_EXO_PLAYER_RESUME_POSITION, exoPlayerResumePosition);
         outState.putBoolean(STATE_EXO_PLAYER_PLAYER_FULLSCREEN, exoPlayerFullscreen);
+        outState.putBoolean(STATE_EXO_PLAYER_PLAY_WHEN_READY, exoPlayerPlayWhenReady);
 
         super.onSaveInstanceState(outState);
     }
@@ -238,7 +259,7 @@ public class RecipeStepDetailFragment extends Fragment {
             // Prepare the player with the source.
             simpleExoPlayer.prepare(videoSource);
             // Start as soon as it's ready
-            simpleExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.setPlayWhenReady(exoPlayerPlayWhenReady);
 
             // Check if we have resume position, if yes then start from there
             boolean haveResumePosition = exoPlayerResumeWindow != C.INDEX_UNSET;
@@ -266,7 +287,6 @@ public class RecipeStepDetailFragment extends Fragment {
     private void releaseExoPlayer() {
         Timber.d("releaseExoPlayer is called");
         if (simpleExoPlayer != null) {
-            simpleExoPlayer.stop();
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }

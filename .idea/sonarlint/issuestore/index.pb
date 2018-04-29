@@ -82,8 +82,6 @@ Kapp/src/main/java/com/debdroid/bakingapp/viewmodel/RecipeListViewModel.java,1/
 s
 Capp/src/main/java/com/debdroid/bakingapp/ui/RecipeListActivity.java,c/7/c7b5b93fac13a4cdba9cfe5c0f06295ad1a24980
 m
-=app/src/main/res/drawable/recipe_card_item_touch_selector.xml,0/2/02740745cfcd7784d543d75ef8693fe59863c247
-m
 =app/src/main/res/drawable/recipe_step_item_touch_selector.xml,4/f/4fa1832ef2224ed8727e8f0dab3eecdd18513886
 g
 7app/src/main/res/layout/activity_recipe_step_detail.xml,4/d/4d15440c56b56618630a760c28f2433c3d052b93
@@ -157,3 +155,11 @@ j
 :app/src/main/res/layout-sw600dp/activity_recipe_detail.xml,2/e/2e12dbc67488149d8132282a481c3963d83fcc8a
 Z
 *app/src/main/res/values-sw600dp/dimens.xml,9/0/90dcae36ba4a7984307c4a92e27c738496d99714
+í
+bapp/build/generated/source/apt/debug/com/debdroid/bakingapp/ui/RecipeListFragment_ViewBinding.java,0/0/00571903eeca1b84c471ca60f8eef84fc01c267c
+~
+Napp/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeListActivityTest.java,0/0/0024d4222ac6d6d676e0c80e7ea31dc7b690bb62
+Ç
+Rapp/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeRestOfActivitiesTest.java,7/5/751e263b272e58b523274e58834d16a6e23f3266
+Å
+Qapp/src/androidTest/java/com/debdroid/bakingapp/ui/RecipeDetailIntentTesting.java,6/9/6980cd6dc12a84f706fcb66cf2ebff92bf733db4
